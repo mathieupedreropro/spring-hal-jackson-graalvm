@@ -1,0 +1,62 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.graalvm.buildtools.native' version '0.9.17'
+	id "org.hibernate.orm" version "6.1.5.Final"
+}
+
+apply plugin: 'org.hibernate.orm'
+
+group = 'org.pedrero.ecos'
+version = '3.0.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.data:spring-data-rest-hal-explorer'
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	implementation 'org.postgresql:postgresql'
+	implementation 'org.apache.commons:commons-lang3'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+}
+
+bootJar {
+	archiveFileName.set("${project.name}.jar")
+}
+
+
+bootBuildImage{
+	builder = 'paketobuildpacks/builder:tiny'
+	environment = [
+			'BP_NATIVE_IMAGE': 'true'
+	]
+	imageName="pedrero/${project.name}:${project.version}"
+}
+
+test {
+	useJUnitPlatform()
+}
+
+hibernate {
+	enhancement {
+		lazyInitialization true
+		dirtyTracking true
+		associationManagement true
+	}
+}

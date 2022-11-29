@@ -1,0 +1,7 @@
+version: '3'
+services:
+  scrapper:
+    image: openjdk
+    volumes: 
+      - /home/mathieu/projects/matchscrapper/build:/opt
+    command: ["java","-jar","/opt/libs/matchscrapper-0.0.1-SNAPSHOT.jar"]
