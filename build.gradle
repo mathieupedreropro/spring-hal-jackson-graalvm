@@ -13,6 +13,16 @@ plugins {
 	id "org.hibernate.orm" version "6.1.5.Final"
 }
 
+graalvmNative {
+	binaries {
+		main {
+			buildArgs.add('--verbose')
+			buildArgs.add('--initialize-at-run-time=io.netty')
+			buildArgs.add('--initialize-at-run-time=io.netty.handler.ssl.BouncyCastleAlpnSslUtils')
+		}
+	}
+}
+
 apply plugin: 'org.hibernate.orm'
 
 group = 'org.pedrero.ecos'
