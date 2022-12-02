@@ -1,0 +1,11 @@
+[
+  {
+    "name": "org.pedrero.ecos.ms.model.entities.Competition"
+  },
+  {
+    "name": "org.pedrero.ecos.ms.model.entities.ScrapperEntity"
+  },
+  {
+    "name": "org.pedrero.ecos.ms.model.entities.Authority"
+  }
+]
